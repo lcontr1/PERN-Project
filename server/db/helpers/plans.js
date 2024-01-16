@@ -1,5 +1,8 @@
 const client = require('../client')
 
+
+//create plan function
+
 const getAllPlans = async() => {
     try {
         const { rows } = await client.query(

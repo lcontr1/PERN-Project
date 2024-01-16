@@ -1,5 +1,7 @@
 const client = require('../client')
 
+//createAuthor function
+
 const getAllAuthors = async() => {
     try {
         const { rows } = await client.query(
