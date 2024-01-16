@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 
-const woodworking = 'woodworking_plans';
+const woodworking = 'woodworkingplans';
 
-const client = new Client(`https://localhost:5432/${woodworking}`);
+const client = new Client(`postgres://localhost:5432/${woodworking}`);
 
 module.exports = client;
