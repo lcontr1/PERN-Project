@@ -1,14 +1,14 @@
 const client = require('../client')
 const util = require('../util')
 
-const createComments = async ({ date, content }) => {
+const createComments = async ({ date, content, planID }) => {
     try{
         const { rows: [comment] } = await client.query(
             `
             INSERT INTO comments(date, content, "planID")
             VALUES($1, $2, $3)
             RETURNING *;
-            `, [date, content]
+            `, [date, content, planID]
         )
         return comment
     }catch(error) {
