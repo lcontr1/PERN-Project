@@ -40,7 +40,7 @@ router.put('/:commentID', async (req, res, next) => {
         const comment = await updateComments(req.params.commentID, req.body)
         res.send(comment)
     } catch(error) {
-        throw error
+        next(error)
     }
 })
 
@@ -50,7 +50,7 @@ router.delete('/:commentID', async (req, res, next) => {
         const comment = await deleteComments(req.params.commentID)
         res.send(comment)
     } catch(error){
-        throw error
+        next(error)
     }
 })
 
