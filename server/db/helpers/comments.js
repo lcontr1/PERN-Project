@@ -5,8 +5,8 @@ const createComments = async ({ date, content }) => {
     try{
         const { rows: [comment] } = await client.query(
             `
-            INSERT INTO comment(date, content)
-            VALUES($1, $2)
+            INSERT INTO comments(date, content, "planID")
+            VALUES($1, $2, $3)
             RETURNING *;
             `, [date, content]
         )
@@ -30,9 +30,51 @@ const getAllComments = async() => {
 }
 
 //getCommentsById
+const getCommentsById = async (commentID) => {
+    try {
+        const { rows: [comment] } = await client.query(`
+        SELECT * FROM comments WHERE "commentID" = ${commentID};
+        `
+        )
+        return comment
+    }catch(error) {
+        throw error
+    }
+}
 
-//updateComments
+//update comments
+const updateComments = async(commentID, fields) => {
+    try {
+        const toUpdate = {}
+        for (let column in fields) {
+            if (fields[column] !== undefined) toUpdate[column] = fields[column]
+        }
+        let comment
+        if(util.dbFields(toUpdate).insert.length > 0) {
+            const { rows } = await client.query(
+                `
+                UPDATE COMMENTS SET ${util.dbFields(toUpdate).insert} WHERE "commentID"=${commentID} RETURNING *;
+                `, Object.values(toUpdate)
+            )
+            comment = rows[0]
+        }
+        return comment
+    } catch(error) {
+        throw error
+    }
+}
+//delete comments
+const deleteComments = async (commentID) => {
+    try{
+        const { rows } = await client.query(
+            `
+            DELETE FROM comments WHERE "commentID" = $1 RETURNING *;
+            `, [commentID]
+        )
+        return rows[0]
+    }catch(error) {
+        throw error
+    }
+}
 
-//deleteComments
-
-module.export = { createComments, getAllComments }
+module.exports = { createComments, getAllComments, getCommentsById, updateComments, deleteComments }
