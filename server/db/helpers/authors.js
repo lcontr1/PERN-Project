@@ -1,6 +1,5 @@
 const client = require('../client')
-
-//createAuthor function
+const util = require('../util')
 
 const getAllAuthors = async() => {
     try {
