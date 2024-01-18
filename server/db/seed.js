@@ -9,9 +9,10 @@ const dropTables = async () => {
         
         console.log('Starting to drop tables')
         await client.query(`
+        DROP TABLE IF EXISTS comments;
         DROP TABLE IF EXISTS authors;
         DROP TABLE IF EXISTS plans;
-        DROP TABLE IF EXISTS comments;
+        
         `)
         console.log('Tables dropped!')
     }catch (error){
@@ -25,18 +26,19 @@ const createTables = async () => {
    try { 
     console.log('building tables...')
     await client.query(`
-    CREATE TABLE comments (
-        "commentID" SERIAL PRIMARY KEY,
-        date DATE NOT NULL,
-        content TEXT NOT NULL
-    );
+    
     CREATE TABLE plans (
         "planID" SERIAL PRIMARY KEY,
         "imgUrl" TEXT NOT NULL,
         title varchar(255) NOT NULL,
         description TEXT NOT NULL,
-        website varchar(255),
-        "commentID" INTEGER REFERENCES comments("commentID")
+        website varchar(255)
+    );
+    CREATE TABLE comments (
+        "commentID" SERIAL PRIMARY KEY,
+        date DATE NOT NULL,
+        content TEXT NOT NULL,
+        "planID" INTEGER REFERENCES plans("planID") NOT NULL
     );
     CREATE TABLE authors (
         "authorID" SERIAL PRIMARY KEY,
@@ -65,14 +67,15 @@ const createTables = async () => {
 //create comments
 const createInitialComments = async () => {
     try {
+        console.log('starting comments')
        for (const comment of comments) {
         const {
             rows: [comments]
         } = await client.query(
             `
-            INSERT INTO comments(date, content)
-            VALUES ($1, $2);
-            `, [comment.date, comment.content]
+            INSERT INTO comments(date, content, "planID")
+            VALUES ($1, $2, $3);
+            `, [comment.date, comment.content, comment.planID]
             )
        }
        console.log("created comments")
@@ -86,14 +89,15 @@ const createInitialComments = async () => {
 //create plans
 const createInitialPlans = async () => {
     try {
+        console.log("starting plans")
         for (const plan of plans) {
             const {
                 rows: [plans]
             } = await client.query(
                 `
-                INSERT INTO plans("imgUrl", title, description, website, "commentID")
-                VALUES ($1, $2, $3, $4, $5);
-                `, [plan.imgUrl, plan.title, plan.description, plan.website, plan.commentID]
+                INSERT INTO plans("imgUrl", title, description, website)
+                VALUES ($1, $2, $3, $4);
+                `, [plan.imgUrl, plan.title, plan.description, plan.website]
             )
         }
         console.log("created plans!")
@@ -102,11 +106,11 @@ const createInitialPlans = async () => {
     }
 }
 
-//placeholder for all other plans route options
 
 //create authors
 const createInitialAuthors = async() => {
     try{
+        console.log("starting authors")
         for (const author of authors) {
             const {
                 rows: [authors]
@@ -128,6 +132,7 @@ const createInitialAuthors = async() => {
 
 const buildDb = async () => {
     try {
+        console.log("starting the build")
         //Connect to the local database
         client.connect()
 
@@ -135,8 +140,8 @@ const buildDb = async () => {
         await dropTables()
         await createTables()
 
-        await createInitialComments()
         await createInitialPlans()
+        await createInitialComments()
         await createInitialAuthors()
 
     } catch (error){
