@@ -13,15 +13,17 @@ function App() {
 
   return (
     <>
-      <Header />
       <h1>Welcome Woodworkers!</h1>
-      <Routes>
-        <Route path="/" element={ <Home /> } />
-        <Route path="/plans" element={ <Plans /> } />
-        <Route path="/authors" element={ <Authors /> } />
-        <Route path="/singlePlan" element={ <SinglePlan /> } />
-        <Route path="/singleAuthor" element={ <SingleAuthor /> } />
-      </Routes>
+      <Header />
+        <div>
+          <Routes>
+            <Route path="/" element={ <Home /> } />
+            <Route path="/plans" element={ <Plans /> } />
+            <Route path="/authors" element={ <Authors /> } />
+            <Route path="/singlePlan" element={ <SinglePlan /> } />
+            <Route path="/singleAuthor" element={ <SingleAuthor /> } />
+          </Routes>
+        </div>
     </>
   )
 }
