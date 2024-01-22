@@ -20,8 +20,8 @@ function App() {
             <Route path="/" element={ <Home /> } />
             <Route path="/plans" element={ <Plans /> } />
             <Route path="/authors" element={ <Authors /> } />
-            <Route path="/singlePlan" element={ <SinglePlan /> } />
-            <Route path="/singleAuthor" element={ <SingleAuthor /> } />
+            <Route path="/plans/:planID" element={ <SinglePlan /> } />
+            <Route path="/authors/:authorID" element={ <SingleAuthor /> } />
           </Routes>
         </div>
     </>
