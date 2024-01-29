@@ -73,7 +73,7 @@ const createInitialComments = async () => {
         } = await client.query(
             `
             INSERT INTO comments(content, "planID")
-            VALUES ($1, $2, $3);
+            VALUES ($1, $2);
             `, [comment.content, comment.planID]
             )
        }
