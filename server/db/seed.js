@@ -36,7 +36,6 @@ const createTables = async () => {
     );
     CREATE TABLE comments (
         "commentID" SERIAL PRIMARY KEY,
-        date DATE NOT NULL,
         content TEXT NOT NULL,
         "planID" INTEGER REFERENCES plans("planID") NOT NULL
     );
