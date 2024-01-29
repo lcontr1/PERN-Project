@@ -72,9 +72,9 @@ const createInitialComments = async () => {
             rows: [comments]
         } = await client.query(
             `
-            INSERT INTO comments(date, content, "planID")
+            INSERT INTO comments(content, "planID")
             VALUES ($1, $2, $3);
-            `, [comment.date, comment.content, comment.planID]
+            `, [comment.content, comment.planID]
             )
        }
        console.log("created comments")
