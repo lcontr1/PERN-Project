@@ -9,12 +9,14 @@ export const woodworkingApi = createApi({
             return headers
         }
     }),
+    tagTypes: ['Comments'],
     endpoints: (build) => ({
         fetchPlans: build.query({
             query: () => '/plans',
         }),
         fetchSinglePlan: build.query({
-            query: (planID) => `/plans/${planID}`
+            query: (planID) => `/plans/${planID}`,
+            providesTags: ['Comments']
         }),
         fetchAuthors: build.query({
             query: () => '/authors'
@@ -23,32 +25,39 @@ export const woodworkingApi = createApi({
             query: (authorID) => `/authors/${authorID}`
         }),
         fetchComments: build.query({
-            query: () => '/comments'
+            query: () => '/comments',
+            providesTags: ['Comments']
+        }),
+        fetchCommentbyPlanID: build.query({
+            query: (planID) => `/comments/${planID}`,
+            providesTags: ['Comments']
         }),
         fetchSingleComment: build.query({
             query: (commentID) => `/comments/${commentID}`
         }),
         createComment: build.mutation ({
             query: (data) => ({
-                url: `/comments/${data.commentID}`,
+                url: '/comments',
                 method: 'POST',
-                body: JSON.stringify(data)
-            })
+                body: {...data}
+            }),
+            invalidatesTags: ['Comments']
         }),
         editComment: build.mutation ({
             query: (data) => ({
                 url: `/comments/${data.commentID}`,
                 method: 'PUT',
-                body: JSON.stringify(data)
+                body: {...data}
             })
         }),
-        deleteComment: build.mutation ({
+        deleteComments: build.mutation ({
             query: (data) => ({
                 url: `/comments/${data.commentID}`,
                 method: 'DELETE'
-            })
+            }),
+            invalidatesTags: ['Comments']
         }),
     })
 })
 
-export const { useFetchPlansQuery, useFetchSinglePlanQuery, useFetchAuthorsQuery, useFetchSingleAuthorQuery, useFetchCommentsQuery, useCreateCommentMutation, useEditCommentMutation, useDeleteCommentMutation  } = woodworkingApi
+export const { useFetchPlansQuery, useFetchSinglePlanQuery, useFetchAuthorsQuery, useFetchSingleAuthorQuery, useFetchCommentbyPlanIDQuery, useFetchCommentsQuery, useCreateCommentMutation, useEditCommentMutation, useDeleteCommentsMutation  } = woodworkingApi

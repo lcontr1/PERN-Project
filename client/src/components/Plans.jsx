@@ -15,14 +15,14 @@ const Plans = () => {
     
     return (
         <>
-        <h2>these are the plans:</h2>
+        <h2 style={{fontSize: '75px'}}>Plans created by amazing Women Woodworkers</h2>
             {data.map((plan) => {
                 return (
-                    <div key={plan.planID}>
-                        <h3>{plan.title}</h3>
+                    <div className='plansBox' key={plan.planID}>
+                        <h3 style={{fontWeight: 'bold'}}>{plan.title}</h3>
                         <img src={plan.imgUrl} alt={plan.title}/>
                         <nav>
-                            <Link to={`/plans/${plan.planID}`}>Plan Details</Link>
+                            <Link style={{ backgroundColor: '#e3d477', fontWeight: 'bold', color: '#e8b38c', lineHeight : 5, padding: 20 }} to={`/plans/${plan.planID}`}>Plan Details</Link>
                         </nav>
                     </div>
                 )
