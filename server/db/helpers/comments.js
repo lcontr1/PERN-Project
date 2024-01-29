@@ -5,10 +5,10 @@ const createComments = async ({ date, content, planID }) => {
     try{
         const { rows: [comment] } = await client.query(
             `
-            INSERT INTO comments(date, content, "planID")
-            VALUES($1, $2, $3)
+            INSERT INTO comments(content, "planID")
+            VALUES($1, $2)
             RETURNING *;
-            `, [date, content, planID]
+            `, [content, planID]
         )
         return comment
     }catch(error) {
@@ -38,6 +38,19 @@ const getCommentsById = async (commentID) => {
         )
         return comment
     }catch(error) {
+        throw error
+    }
+}
+
+//get comments by planID
+const getCommentsbyPlanID = async (planID) => {
+    try {
+        const { rows } = await client.query(`
+        SELECT * FROM comments WHERE "planID" = ${planID};
+        `
+        )
+        return rows
+    } catch (error) {
         throw error
     }
 }
@@ -77,4 +90,4 @@ const deleteComments = async (commentID) => {
     }
 }
 
-module.exports = { createComments, getAllComments, getCommentsById, updateComments, deleteComments }
+module.exports = { createComments, getAllComments, getCommentsById, getCommentsbyPlanID, updateComments, deleteComments }

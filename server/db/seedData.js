@@ -1,6 +1,6 @@
 //comments
 const comments = [
-    { date: '2024-01-12', content: 'What an amazing site this is! Whoever did this must have worked through alot of frustration and tears.', planID: 1}
+    { content: 'What an amazing site this is! Whoever did this must have worked through alot of frustration and tears.', planID: 1}
 ]
 
 //plans

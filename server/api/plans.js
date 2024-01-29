@@ -17,6 +17,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:planID', async (req, res, next) => {
     try {
         const comment = await getPlansById(req.params.planID)
+        
         res.send(comment)
     } catch(error){
         next(error)
