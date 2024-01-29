@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useFetchSingleAuthorQuery } from "../api/woodworkingApi"
 import React from "react"
 
-
 function SingleAuthor() {
     const { authorID } = useParams()
     const { data={}, error, isLoading } = useFetchSingleAuthorQuery(authorID)
@@ -13,11 +12,11 @@ function SingleAuthor() {
         console.log(error)
         return <div>Error: {error.message}</div>
     }
-    console.log(data)
    
     function authorsButton() {
         navigate('/authors')
     }
+    
     return (
         <div>
             <button type='button' onClick={authorsButton}>Back to all Woodworkers</button>

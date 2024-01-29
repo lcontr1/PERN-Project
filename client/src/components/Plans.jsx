@@ -4,14 +4,12 @@ import { Link } from "react-router-dom"
 
 const Plans = () => {
     const { data = {}, error, isLoading } = useFetchPlansQuery()
-
         
     if (isLoading) {
         return <div>Loading...</div>
     } if (error) {
         return <div>Error: {error.message}</div>
     }
-    console.log(data)
     
     return (
         <>

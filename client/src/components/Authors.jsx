@@ -6,14 +6,11 @@ import { Link } from "react-router-dom"
 function Authors() {
     const { data = {}, error, isLoading } = useFetchAuthorsQuery()
    
-
     if (isLoading) {
         return <div>Loading..</div>
     } if (error) {
         return <div>Error: {error.message}</div>
     }
-
-   
 
     return (
         <>

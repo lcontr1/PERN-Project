@@ -1,11 +1,9 @@
 import { useDeleteCommentsMutation, useFetchCommentbyPlanIDQuery } from "../api/woodworkingApi";
 import React from "react";
 import { useParams } from "react-router-dom";
-// import { EditCommentForm } from "./EditCommentsForm";
 
 function Comments() {
     const { planID, commentID } = useParams()
-
     const {data={}, error, isLoading } = useFetchCommentbyPlanIDQuery(planID)
     const [deleteComment, { isLoading: isDeleting } ] = useDeleteCommentsMutation(commentID)
     
@@ -23,7 +21,6 @@ function Comments() {
         }
     }
 
-   
     return (
         <>
         {data.map((comment) => (
@@ -34,9 +31,6 @@ function Comments() {
 
             )
         )}
-
-
-       
         </>
     )
 }

@@ -1,4 +1,3 @@
-
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
@@ -9,12 +8,10 @@ import SingleAuthor from './components/SingleAuthor'
 import SinglePlan from './components/SinglePlan'
 
 function App() {
-  
 
   return (
     <>
-    <div className='h-screen flex items-center justify-center'>
-      <h1></h1>
+    
       <Header />
         <div>
           <Routes>
@@ -24,7 +21,6 @@ function App() {
             <Route path="/plans/:planID" element={ <SinglePlan /> } />
             <Route path="/authors/:authorID" element={ <SingleAuthor /> } />
           </Routes>
-        </div>
         </div>
     </>
   )

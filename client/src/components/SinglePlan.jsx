@@ -18,6 +18,7 @@ function SinglePlan() {
     function plansButton() {
       navigate('/plans')
     }
+    
     return (
         <div>
         <button type='button' onClick={plansButton}>Back to all Plans</button>
